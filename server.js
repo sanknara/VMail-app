@@ -6,6 +6,14 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
+const jsonServer = require('json-server-heroku-sanknara');
+const server = jsonServer.create();
+const router = jsonServer.router('db.json');
+const middlewares = jsonServer.defaults();
+const port = process.env.PORT || 3000;
+
+
+
 app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 app.use(serveStatic(__dirname + '/dist'));
@@ -17,3 +25,10 @@ app.use(history());
 app.listen(PORT, function () {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
+
+server.use(middlewares);
+server.use(router);
+
+server.listen(port, () => {
+    console.log('JSON Server is running')
+})
