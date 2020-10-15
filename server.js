@@ -2,7 +2,7 @@ const express = require('express');
 const serveStatic = require('serve-static');
 const history = require('connect-history-api-fallback');
 const enforce = require('express-sslify');
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
@@ -10,7 +10,6 @@ const jsonServer = require('json-server');
 const server = jsonServer.create();
 const router = jsonServer.router('db.json');
 const middlewares = jsonServer.defaults();
-const port = process.env.PORT || 3000;
 
 
 
@@ -29,6 +28,6 @@ app.listen(PORT, function () {
 server.use(middlewares);
 server.use(router);
 
-server.listen(port, () => {
+server.listen(PORT, () => {
     console.log('JSON Server is running')
 })
