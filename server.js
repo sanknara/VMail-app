@@ -3,16 +3,22 @@ const serveStatic = require('serve-static');
 const history = require('connect-history-api-fallback');
 const enforce = require('express-sslify');
 
-const jsonServer = require('json-server');
-const server = jsonServer.create();
-const router = jsonServer.router('db.json');
-const middlewares = jsonServer.defaults();
+const { exec } = require('child_process');
+
+// Set port (default: 3000). For Heroku, we need to use
+// the port set by the environment variable $PORT
 const port = process.env.PORT || 3000;
 
-server.use(middlewares);
-server.use(router);
+const command = `json-server --watch db.json --port ${port}`;
 
-server.listen(port);
+exec(command, (err, stdout, stderr) => {
+    if (err) {
+        console.log('Error running exec', err);
+        return;
+    }
+    console.log('stdout:', stdout);
+    console.log('stderr:', stderr);
+});
 
 const app = express();
 
