@@ -104,7 +104,10 @@ export default {
       this.updateEmail(email);
     },
     updateEmail(email) {
-      axios.put(`/emails/${email.id}`, email);
+      axios.put(
+        `https://json-server-heroku-sanknara.herokuapp.com/emails/${email.id}`,
+        email
+      );
     },
     changeEmail({ toggleRead, toggleArchive, save, closeModal, changeIndex }) {
       let email = this.openedEmail;

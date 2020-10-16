@@ -24,7 +24,7 @@ export const useEmailSelection = function () {
     let forSelected = (fn) => {
         emails.forEach(email => {
             fn(email);
-            axios.put(`/emails/${email.id}`, email);
+            axios.put(`https://json-server-heroku-sanknara.herokuapp.com/emails/${email.id}`, email);
         })
     }
 
